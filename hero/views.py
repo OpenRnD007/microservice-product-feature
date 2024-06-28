@@ -9,8 +9,15 @@ from .utils import CacheHelper
 # Create your views here.
 
 class HeroDetail(generics.GenericAPIView):
-
+    """
+    View for retrieving, updating, or deleting a title instance.
+    """
     def get(self, request, *args, **kwargs):
+        """
+        Retrieve a title instance by its ID.
+        If the data is cached, it is served from the cache to improve performance.
+        Otherwise, it is fetched from the database and then cached for future requests.
+        """
         title_id = kwargs.get('id', None)
         if title_id is not None:
             # Check if the data is in the cache
@@ -35,6 +42,10 @@ class HeroDetail(generics.GenericAPIView):
 
 
     def put(self, request, *args, **kwargs):
+        """
+        Update a title instance.
+        The updated information is also cached to ensure consistency.
+        """
         title_id = kwargs.get('id', None)
         if title_id is not None:
             try:
@@ -51,6 +62,10 @@ class HeroDetail(generics.GenericAPIView):
 
 
     def delete(self, request, *args, **kwargs):
+        """
+        Delete a title instance.
+        The corresponding cache entry is also deleted to maintain cache integrity.
+        """
         title_id = kwargs.get('id', None)
         if title_id is not None:
             try:
@@ -64,8 +79,15 @@ class HeroDetail(generics.GenericAPIView):
 
 
 class HeroAdd(generics.GenericAPIView):
-
+    """
+    View for creating a new title instance.
+    After creation, the new title is also added to the cache.
+    """
     def post(self, request, *args, **kwargs):
+        """
+        Create a new title instance.
+        The new entry is immediately cached for quick access.
+        """
         serializer = TitlesSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
