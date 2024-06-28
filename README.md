@@ -55,7 +55,7 @@ Contributions to the Hero project are welcome! If you have suggestions for impro
 
 ## License
 
-[MIT License](LICENSE.md)
+[MIT License](LICENSE)
 
 ## TODO
 - Tests
